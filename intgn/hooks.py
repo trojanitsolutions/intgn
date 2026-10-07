@@ -8,7 +8,7 @@ app_license = "mit"
 # Apps
 # ------------------
 
-# required_apps = []
+required_apps = ["erpnext"]
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
@@ -43,7 +43,7 @@ app_license = "mit"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Sales Invoice": "public/js/sales_invoice.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -86,13 +86,14 @@ app_license = "mit"
 # ------------
 
 # before_install = "intgn.install.before_install"
-# after_install = "intgn.install.after_install"
+after_install = ["intgn.customizations.sales_invoice.create_custom_fields"]
+after_migrate = ["intgn.customizations.sales_invoice.create_custom_fields"]
 
 # Uninstallation
 # ------------
 
 # before_uninstall = "intgn.uninstall.before_uninstall"
-# after_uninstall = "intgn.uninstall.after_uninstall"
+after_uninstall = ["intgn.customizations.sales_invoice.delete_custom_fields"]
 
 # Integration Setup
 # ------------------
@@ -262,3 +263,11 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+
+doc_events = {
+	"Sales Invoice": {
+		"before_validate": "intgn.customizations.sales_invoice.before_validate",
+		"validate": "intgn.customizations.sales_invoice.validate",
+		"after_insert": "intgn.customizations.sales_invoice.after_insert",
+	}
+}
